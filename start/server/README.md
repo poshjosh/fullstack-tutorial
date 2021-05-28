@@ -16,7 +16,7 @@ const typeDefs = gql`
 type User{
   id: ID!
   name: String!
-  isHappy: Boolean!    
+  isHappy: Boolean!
 }
 
 type Query {
@@ -108,11 +108,25 @@ server.listen().then(() => {
 });
 ```
 
+### Schema
+
 - GraphQL schema definitions are enclosed in backticks.
 - `Query` and `Mutation` are in built schema types.
 - `Query` for read, `Mutation` for write operations.
 - `User` is a custom type.   
 - You can and should define custom types for data encapsulation.
+- Fields suffixed with an exclamation mark (`!`) may not be null, but may be empty arrays etc.
+  
+### DataSource
+
 - The `UserAPI` could fetch data from a REST API, SQL datasource or other data source.
-- In simplified Example, the `UserAPI` contains its own data.
+- Apollo-graphql defines some `DataSource` implementations e.g `RESTDataSource`.
+- In this simplified Example, the `UserAPI` contains its own data.
+  
+### Resolver
+
+- Resolvers were only created for those types that cannot be automatically inferred.
+- We created a resolver for `Query.user` but not for `User.name` as `User.name` is already a field in the data returned by the `DataSource`
+
+
 
